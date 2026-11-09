@@ -11,12 +11,18 @@ llm = ChatOllama(
 def generate_website(state):
 
     analysis = state["website_analysis"]
+    user_request = state.get("user_request", "")
 
     prompt = f"""
     You are an expert frontend developer.
 
-    Build an original pizza delivery website based on this analysis:
+    Build an original website that fulfills the user's request, using the
+    research analysis as design guidance:
 
+    User request:
+    {user_request}
+
+    Website analysis:
     {analysis}
 
     Requirements:
@@ -24,10 +30,11 @@ def generate_website(state):
     - CSS3
     - Vanilla JavaScript
     - Responsive design
-    - Modern user interface
-    - Pizza menu with prices
-    - Shopping cart
-    - Add to cart functionality
+    - Accessible, semantic markup and usable keyboard interactions
+    - Implement the features and business domain described in the request
+    - Use original branding, copy, and assets; do not reproduce the reference
+      site's logo, proprietary text, source code, or distinctive brand identity
+    - Do not invent backend integrations; make demo interactions work locally
 
     Return exactly three files:
 
@@ -63,6 +70,14 @@ def generate_website(state):
     pattern = r"FILE:\s*(.*?)\s*```(?:\w+)?\s*(.*?)```"
 
     matches = re.findall(pattern, output, re.DOTALL)
+    expected_files = {"index.html", "style.css", "script.js"}
+    returned_files = {filename.strip() for filename, _ in matches}
+    if len(matches) != len(expected_files) or returned_files != expected_files:
+        missing = sorted(expected_files - returned_files)
+        raise RuntimeError(
+            "The language model did not return all required website files: "
+            + ", ".join(missing)
+        )
 
     for filename, content in matches:
 

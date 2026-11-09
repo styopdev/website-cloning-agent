@@ -1,6 +1,6 @@
 from langgraph.graph import StateGraph, START, END
 from app.nodes.browser_test import browser_test
-from app.state import AgentState
+from app.tools.state import AgentState
 from app.nodes.research import research_website
 from app.nodes.analyze import analyze_website
 from app.nodes.generate import generate_website
@@ -44,3 +44,7 @@ def build_graph():
             "end": END
         }
     )
+
+    graph.add_edge("improve", "browser_test")
+
+    return graph.compile()

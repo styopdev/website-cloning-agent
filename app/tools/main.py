@@ -1,4 +1,4 @@
-from app.graph import build_graph
+from app.tools.graph import build_graph
 
 
 def main():
@@ -7,9 +7,10 @@ def main():
 
     print("\n=== Website Cloning Agent ===\n")
 
-    website_url = input("Enter reference website URL: ")
-
     user_request = input("What website do you want to build? ")
+    website_url = input(
+        "Reference website URL (optional; leave blank to search): "
+    ).strip()
 
     initial_state = {
         "user_request": user_request,
@@ -19,7 +20,8 @@ def main():
         "generated_files": [],
         "review_feedback": "",
         "approved": False,
-        "revision_count": 0
+        "revision_count": 0,
+        "browser_test_results": ""
     }
 
     print("\nAgent started...\n")
@@ -27,6 +29,7 @@ def main():
     result = agent.invoke(initial_state)
 
     print("\n=== Agent Results ===")
+    print(f"\nReference website: {result['website_url']}")
 
     print("\nGenerated files:")
 
