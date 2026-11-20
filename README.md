@@ -1,7 +1,7 @@
 # Website Cloning Agent
 
 This project uses a local Ollama model and Playwright to recreate a website's
-layout and visible interactions from a required reference URL.
+layout and visible interactions from a reference URL it finds or one you provide.
 
 ## Run the agent
 
@@ -14,13 +14,14 @@ Use one of these commands from the project directory:
 Or open **Run and Debug** in VS Code and choose **Website Cloning Agent**.
 The prompts appear in the integrated terminal.
 
-Enter the URL of the website you want to recreate. A reference URL is required;
-the agent will stop instead of generating a generic site if one is missing.
-Then enter optional instructions or press Enter to match the reference layout.
+Describe the kind of website you want to clone. You can optionally provide a
+reference URL; otherwise, the agent searches Bing and DuckDuckGo, then asks the
+local model to suggest and verify candidates if search results are blocked.
+It stops instead of generating a generic site if no candidate can be verified.
 For example:
 
 ```text
-https://example.com
+An online shop for trail-running shoes with product categories and a cart
 ```
 
 The result uses original branding, copy, and assets rather than copying a

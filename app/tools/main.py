@@ -7,19 +7,14 @@ def main():
 
     print("\n=== Website Cloning Agent ===\n")
 
-    website_url = input("Website URL to recreate (required): ").strip()
-    if not website_url:
-        print("No website was created. A reference URL is required to copy a site.")
+    user_request = input("What kind of website do you want to clone? ").strip()
+    if not user_request:
+        print("Describe the kind of website you want to clone.")
         return
 
-    user_request = input(
-        "Optional changes or instructions (press Enter to match its layout): "
+    website_url = input(
+        "Reference URL (optional; leave blank to find the best candidate): "
     ).strip()
-    if not user_request:
-        user_request = (
-            "Recreate the reference website's visible layout, section order, "
-            "visual style, and interactions as closely as practical."
-        )
 
     initial_state = {
         "user_request": user_request,
