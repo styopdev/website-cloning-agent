@@ -46,6 +46,8 @@ Create an implementation-ready analysis with these sections:
 Prioritize matching the reference's visible layout and design patterns. Do not
 reproduce its logo, proprietary copy, source code, or distinctive brand identity;
 use original branding and wording while retaining the same content hierarchy.
+Base the layout and styling recommendations on the measured visual profile,
+not on a generic storefront template.
 Be specific enough that a frontend developer can build the site without
 guessing, and identify any details that remain uncertain.
 Keep the analysis concise: use one to three short bullets per section.

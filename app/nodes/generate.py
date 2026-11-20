@@ -70,11 +70,20 @@ def generate_website(state):
     - Vanilla JavaScript
     - Responsive design
     - Accessible, semantic markup and usable keyboard interactions
+    - Deliver a polished, visually rich result, not a bare HTML page with
+      default browser styling
+    - Translate the reference's measured palette, typography, spacing, nav,
+      section widths, and component geometry into concrete CSS
+    - Give the header, hero, content sections, product cards, controls, and
+      footer distinct, intentional layout and spacing
+    - Keep all visual presentation in style.css; do not set inline styles from
+      JavaScript
     - Implement the visible features and interactions observed on the reference
     - Use original branding, copy, and assets; do not reproduce the reference
       site's logo, proprietary text, source code, or distinctive brand identity
     - Do not reference image files or URLs that were not provided; use CSS
-      artwork or inline SVG where visual assets are needed
+      artwork or inline SVG elements where visual assets are needed. Do not
+      use data-URI img placeholders.
     - Do not invent backend integrations; make demo interactions work locally
 
     Return only a valid JSON object with exactly these three string keys:

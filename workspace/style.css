@@ -1,99 +1,277 @@
+:root {
+    font-family: "Open Sans", Arial, sans-serif;
+    color: #30353c;
+    background: #fff;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    --ink: #30353c;
+    --muted: #666;
+    --accent: #be5a0f;
+    --paper: #f7f7f5;
+    --line: #e7e5df;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
 body {
-    font-family: 'Open Sans', sans-serif;
+    min-width: 320px;
     margin: 0;
-    padding: 0;
+    font-size: 16px;
+    line-height: 1.55;
 }
 
 header {
-    background-color: #333;
-    color: #fff;
-    padding: 1em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 20px clamp(24px, 6vw, 88px);
+    border-bottom: 1px solid var(--line);
+    background: #fff;
 }
 
 nav ul {
-    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
     margin: 0;
     padding: 0;
-}
-
-nav li {
-    display: inline-block;
-    margin-right: 20px;
+    list-style: none;
 }
 
 nav a {
-    color: #fff;
+    color: var(--ink);
+    font-size: .9rem;
+    font-weight: 600;
     text-decoration: none;
 }
 
-.hero {
-    background-image: linear-gradient(to bottom, #FF69B4, #FFC107);
-    background-size: 100% 300px;
-    background-position: 0% 100%;
-    height: 300px;
+nav a:hover {
+    color: var(--accent);
+}
+
+.site-search {
     display: flex;
+    align-items: center;
+    gap: 8px;
+    width: min(320px, 100%);
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    clip-path: inset(50%);
+}
+
+.is-filtered {
+    display: none !important;
+}
+
+.site-search input {
+    width: 100%;
+    min-width: 0;
+    padding: 11px 14px;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    font: inherit;
+}
+
+.site-search button,
+.button {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    align-items: center;
-}
-
-.featured-products {
-    background-color: #f7f7f7;
-    padding: 2em;
-}
-
-.featured-products ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.featured-products li {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-.featured-products img {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-}
-
-.featured-products h3 {
-    font-weight: bold;
-}
-
-.featured-products p {
-    font-size: 18px;
-}
-
-.collections {
-    background-color: #f7f7f7;
-    padding: 2em;
-}
-
-.collections ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-.collections li {
-    display: inline-block;
-    margin-right: 20px;
-}
-
-.collections a {
-    color: #333;
+    min-height: 44px;
+    padding: 0 20px;
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    background: var(--accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
     text-decoration: none;
+    cursor: pointer;
 }
 
-.collections a:hover {
-    color: #FF69B4;
+.site-search button:hover,
+.button:hover {
+    background: #984608;
 }
 
-main {
-    display: flex;
-    flex-direction: column;
+#hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, .8fr);
     align-items: center;
-    padding: 2em;
+    gap: 48px;
+    min-height: 440px;
+    padding: 64px clamp(24px, 9vw, 136px);
+    overflow: hidden;
+    background: #f4f1ea;
+}
+
+.hero-copy {
+    max-width: 560px;
+}
+
+.eyebrow {
+    margin: 0 0 12px;
+    color: var(--accent);
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+#hero h1 {
+    max-width: 540px;
+    margin: 0 0 18px;
+    color: var(--ink);
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    font-weight: 600;
+    letter-spacing: -.045em;
+    line-height: 1.05;
+}
+
+#hero .hero-copy > p:not(.eyebrow) {
+    max-width: 440px;
+    margin: 0 0 28px;
+    color: var(--muted);
+    font-size: 1.08rem;
+}
+
+.hero-art {
+    position: relative;
+    width: min(100%, 340px);
+    aspect-ratio: 1;
+    justify-self: center;
+    border-radius: 50%;
+    background:
+        radial-gradient(ellipse at 50% 65%, #81543c 0 18%, transparent 19%),
+        radial-gradient(ellipse at 50% 64%, #fff 0 25%, transparent 26%),
+        radial-gradient(circle at 50% 50%, #e8dfd0 0 55%, #ded2bd 56% 70%, transparent 71%);
+    filter: drop-shadow(0 24px 24px rgba(48, 53, 60, .12));
+}
+
+#shop-tea,
+#discover-new-teas,
+#best-sellers {
+    padding: 72px clamp(24px, 8vw, 112px);
+}
+
+#discover-new-teas {
+    background: var(--paper);
+}
+
+section h2 {
+    margin: 0 0 30px;
+    color: var(--ink);
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 600;
+    letter-spacing: -.025em;
+}
+
+#shop-tea ul,
+#discover-new-teas ul,
+#best-sellers ul {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 20px;
+    max-width: 1000px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+#shop-tea li,
+#discover-new-teas li,
+#best-sellers li {
+    min-height: 170px;
+    padding: 28px;
+    border: 1px solid var(--line);
+    background: #fff;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+#shop-tea li:hover,
+#discover-new-teas li:hover,
+#best-sellers li:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(48, 53, 60, .08);
+}
+
+section li h3 {
+    margin: 0 0 8px;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+section li p {
+    margin: 0;
+    color: var(--muted);
+}
+
+footer {
+    padding: 28px clamp(24px, 8vw, 112px);
+    border-top: 1px solid var(--line);
+    background: #fff;
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid #d98d51;
+    outline-offset: 3px;
+}
+
+@media (max-width: 760px) {
+    header {
+        align-items: stretch;
+        flex-direction: column;
+        gap: 18px;
+        padding: 20px 24px;
+    }
+
+    nav ul {
+        gap: 16px 22px;
+    }
+
+    .site-search {
+        width: 100%;
+    }
+
+    #hero {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding: 56px 24px;
+    }
+
+    .hero-art {
+        width: min(68vw, 280px);
+    }
+
+    #shop-tea,
+    #discover-new-teas,
+    #best-sellers {
+        padding: 52px 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    #shop-tea ul,
+    #discover-new-teas ul,
+    #best-sellers ul {
+        grid-template-columns: 1fr;
+    }
 }

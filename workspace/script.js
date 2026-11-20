@@ -1,36 +1,65 @@
-const products = [
-    {
-        id: 1,
-        name: 'Product 1',
-        price: 19.99,
-        image: 'data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect x='0' y='0' width='100' height='100' fill='%23FF69B4'%3E%3C/svg%3E'
-    },
-    {
-        id: 2,
-        name: 'Product 2',
-        price: 29.99,
-        image: 'data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect x='0' y='0' width='100' height='100' fill='%23FFC107'%3E%3C/svg%3E'
-    }
-];
+const hero = document.getElementById('hero');
+const shopTea = document.getElementById('shop-tea');
+const discoverNewTeas = document.getElementById('discover-new-teas');
+const bestSellers = document.getElementById('best-sellers');
 
-const featuredProducts = document.querySelector('.featured-products');
-const collections = document.querySelector('.collections');
+const shopTeaList = document.getElementById('shop-tea').querySelectorAll('li');
+const discoverNewTeasList = document.getElementById('discover-new-teas').querySelectorAll('li');
+const bestSellersList = document.getElementById('best-sellers').querySelectorAll('li');
 
-products.forEach((product) => {
-    const productElement = document.createElement('li');
-    productElement.innerHTML = `
-        <img src="${product.image}" alt="${product.name}">
-        <h3>${product.name}</h3>
-        <p>
-            
-        </p>
-    `;
-    featuredProducts.appendChild(productElement);
+shopTeaList.forEach((item) => {
+    item.addEventListener('click', () => {
+        alert('Shop tea now!');
+    });
 });
 
-collections.addEventListener('click', (e) => {
-    if (e.target.tagName === 'A') {
-        const collectionName = e.target.textContent;
-        console.log(collectionName);
-    }
+discoverNewTeasList.forEach((item) => {
+    item.addEventListener('click', () => {
+        alert('Discover new teas!');
+    });
+});
+
+bestSellersList.forEach((item) => {
+    item.addEventListener('click', () => {
+        alert('Best Sellers!');
+    });
+});
+
+const searchForm = document.createElement('form');
+searchForm.className = 'site-search';
+searchForm.setAttribute('role', 'search');
+
+const searchLabel = document.createElement('label');
+searchLabel.className = 'visually-hidden';
+searchLabel.htmlFor = 'tea-search';
+searchLabel.textContent = 'Search teas';
+
+const searchInput = document.createElement('input');
+searchInput.id = 'tea-search';
+searchInput.type = 'search';
+searchInput.placeholder = 'Search teas';
+
+const searchButton = document.createElement('button');
+searchButton.type = 'submit';
+searchButton.textContent = 'Search';
+
+searchForm.append(searchLabel, searchInput, searchButton);
+const header = document.querySelector('header');
+header.appendChild(searchForm);
+
+searchForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+});
+
+searchInput.addEventListener('input', () => {
+    const searchValue = searchInput.value.toLowerCase();
+    const teas = document.querySelectorAll('#shop-tea li, #discover-new-teas li, #best-sellers li');
+    teas.forEach((tea) => {
+        const teaName = tea.querySelector('h3').textContent.toLowerCase();
+        if (teaName.includes(searchValue)) {
+            tea.classList.remove('is-filtered');
+        } else {
+            tea.classList.add('is-filtered');
+        }
+    });
 });

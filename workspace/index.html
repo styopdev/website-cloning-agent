@@ -3,60 +3,72 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sportswear Store</title>
+    <title>Tea E-commerce Website</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header>
         <nav>
             <ul>
-                <li><a href="#">Home</a></li>
-                <li><a href="#">Collections</a></li>
-                <li><a href="#">Product Details</a></li>
-                <li><a href="#">Cart and Checkout</a></li>
-                <li><a href="#">Account Management</a></li>
+                <li><a href="#shop-tea">Shop tea</a></li>
+                <li><a href="#discover-new-teas">Discover new teas</a></li>
+                <li><a href="#best-sellers">Best Sellers</a></li>
             </ul>
         </nav>
     </header>
     <main>
-        <section class="hero">
-            <h1>Welcome to Sportswear Store!</h1>
-            <p>Get ready to gear up for your next adventure!</p>
+        <section id="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">Explore something new</p>
+                <h1>Try new teas without risk</h1>
+                <p>Find a new favorite with carefully selected loose-leaf teas for every day.</p>
+                <a class="button" href="#shop-tea">Shop tea</a>
+            </div>
+            <div class="hero-art" aria-hidden="true"></div>
         </section>
-        <section class="featured-products">
-            <h2>Featured Products</h2>
+        <section id="shop-tea">
+            <h2>Shop tea</h2>
             <ul>
                 <li>
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect x='0' y='0' width='100' height='100' fill='%23FF69B4'%3E%3C/svg%3E" alt="Product 1">
-                    <h3>Product 1</h3>
-                    <p>
-                        $19.99
-                    </p>
+                    <h3>Tea 1</h3>
+                    <p>$10.99</p>
                 </li>
                 <li>
-                    <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Crect x='0' y='0' width='100' height='100' fill='%23FFC107'%3E%3C/svg%3E" alt="Product 2">
-                    <h3>Product 2</h3>
-                    <p>
-                        $29.99
-                    </p>
+                    <h3>Tea 2</h3>
+                    <p>$12.99</p>
                 </li>
             </ul>
         </section>
-        <section class="collections">
-            <h2>Collections</h2>
+        <section id="discover-new-teas">
+            <h2>Discover new teas</h2>
             <ul>
                 <li>
-                    <a href="#">Running</a>
+                    <h3>Tea 3</h3>
+                    <p>$15.99</p>
                 </li>
                 <li>
-                    <a href="#">Basketball</a>
+                    <h3>Tea 4</h3>
+                    <p>$18.99</p>
+                </li>
+            </ul>
+        </section>
+        <section id="best-sellers">
+            <h2>Best Sellers</h2>
+            <ul>
+                <li>
+                    <h3>Tea 5</h3>
+                    <p>$20.99</p>
                 </li>
                 <li>
-                    <a href="#">Yoga</a>
+                    <h3>Tea 6</h3>
+                    <p>$22.99</p>
                 </li>
             </ul>
         </section>
     </main>
+    <footer>
+        <p>&copy; 2023 Tea E-commerce Website</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
