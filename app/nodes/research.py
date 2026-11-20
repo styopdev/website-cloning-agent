@@ -1,5 +1,5 @@
 import json
-from urllib.parse import quote, urljoin, urlsplit
+from urllib.parse import urlsplit
 
 from playwright.sync_api import sync_playwright
 
@@ -14,72 +14,75 @@ def _validate_url(url):
     return url
 
 
-def _find_reference(page, user_request):
-    search_url = (
-        "https://html.duckduckgo.com/html/?q="
-        + quote(user_request, safe="")
-    )
-    page.goto(search_url, wait_until="domcontentloaded", timeout=60000)
-
-    for result in page.locator("a.result__a").all():
-        href = result.get_attribute("href")
-        if not href:
-            continue
-
-        candidate = urljoin(search_url, href)
-        parsed = urlsplit(candidate)
-        hostname = (parsed.hostname or "").lower()
-        if (
-            parsed.scheme in {"http", "https"}
-            and parsed.netloc
-            and hostname != "duckduckgo.com"
-            and not hostname.endswith(".duckduckgo.com")
-        ):
-            return candidate
-
-    raise RuntimeError(
-        "Web search did not return a usable reference site. "
-        "Try again or provide a reference URL."
-    )
-
-
 def research_website(state):
     url = state.get("website_url", "").strip()
-    user_request = state.get("user_request", "").strip()
 
-    if not url and not user_request:
-        raise ValueError("Provide a website request or a reference URL.")
+    if not url:
+        raise ValueError(
+            "A reference website URL is required; no generic site was created."
+        )
+
+    url = _validate_url(url)
 
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         try:
             page = browser.new_page()
-            if not url:
-                url = _find_reference(page, user_request)
-
-            url = _validate_url(url)
+            print(f"Researching reference website {url}...", flush=True)
             page.goto(url, wait_until="domcontentloaded", timeout=60000)
 
             title = page.title()
-            description = page.locator(
-                'meta[name="description"]'
-            ).get_attribute("content") or ""
+            description_meta = page.locator('meta[name="description"]')
+            description = (
+                description_meta.get_attribute("content")
+                if description_meta.count()
+                else ""
+            )
 
             headings = page.locator("h1, h2, h3").all_text_contents()
             links = page.locator("a").all_text_contents()
             buttons = page.locator(
                 "button, [role='button']"
             ).all_text_contents()
-            page_text = page.locator("body").inner_text()[:10000]
+            page_text = page.locator("body").inner_text()[:4000]
+            visual_profile = page.locator("body").evaluate(
+                """body => Array.from(
+                    body.querySelectorAll(
+                        "header, nav, main, section, article, footer, "
+                        + "h1, h2, button, a"
+                    )
+                ).filter(element => {
+                    const rect = element.getBoundingClientRect();
+                    return rect.width > 0 && rect.height > 0;
+                }).slice(0, 18).map(element => {
+                    const style = getComputedStyle(element);
+                    const rect = element.getBoundingClientRect();
+                    return {
+                        tag: element.tagName.toLowerCase(),
+                        className: String(element.className || "").slice(0, 80),
+                        text: (element.innerText || "").replace(/\\s+/g, " ").trim().slice(0, 80),
+                        width: Math.round(rect.width),
+                        height: Math.round(rect.height),
+                        display: style.display,
+                        background: style.backgroundColor,
+                        color: style.color,
+                        font: style.font,
+                        padding: style.padding,
+                        margin: style.margin,
+                        gap: style.gap
+                    };
+                })"""
+            )
 
             research_data = {
                 "url": url,
                 "title": title,
-                "description": description,
-                "headings": headings[:60],
-                "links": links[:60],
-                "buttons": buttons[:30],
+                "description": description or "",
+                "headings": headings[:30],
+                "links": links[:20],
+                "buttons": buttons[:20],
                 "page_text": page_text,
+                "visual_profile": visual_profile,
             }
 
         finally:

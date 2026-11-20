@@ -10,10 +10,10 @@ from app.nodes.improve import improve_website
 
 def review_router(state):
 
-    if state["approved"]:
+    if state.get("approved", False):
         return "end"
 
-    if state["revision_count"] >= 2:
+    if state.get("revision_count", 0) >= 1:
         return "end"
 
     return "improve"
